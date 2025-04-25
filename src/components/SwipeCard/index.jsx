@@ -53,47 +53,111 @@ export default function SwipeCard({ product, onSwipe, style, canDrag }) {
     window.removeEventListener('touchend', endDrag);
   };
 
+  function useDominantColor(imageUrl) {
+    const [color, setColor] = useState('rgba(40,40,40,0.6)');
+    React.useEffect(() => {
+      if (!imageUrl) return;
+      const img = new window.Image();
+      img.crossOrigin = 'Anonymous';
+      img.src = imageUrl;
+      img.onload = function () {
+        const canvas = document.createElement('canvas');
+        canvas.width = img.width;
+        canvas.height = img.height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0);
+        const data = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+        let r = 0, g = 0, b = 0, count = 0;
+        for (let i = 0; i < data.length; i += 4) {
+          r += data[i];
+          g += data[i + 1];
+          b += data[i + 2];
+          count++;
+        }
+        r = Math.round(r / count);
+        g = Math.round(g / count);
+        b = Math.round(b / count);
+        setColor(`rgba(${r},${g},${b},0.85)`);
+      };
+    }, [imageUrl]);
+    return color;
+  }
+
+  const dominantColor = useDominantColor(product.imageUrl);
+
   return (
     <div
-      ref={cardRef}
-      className={
-        `absolute w-[90vw] max-w-[340px] h-[410px] sm:w-[340px] sm:h-[420px] left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-2xl shadow-lg flex flex-col overflow-hidden z-10 select-none will-change-transform transition-shadow ` +
-        (canDrag ? 'cursor-grab active:shadow-2xl' : 'pointer-events-none')
-      }
+      className="relative flex items-center justify-center"
       style={{
-        ...style,
-        transform: `translate(${drag.x}px, ${drag.y}px) rotate(${drag.x * 0.07}deg)` + (style?.transform ? ` ${style.transform}` : ''),
-        transition,
-        touchAction: canDrag ? 'pan-y' : 'none',
+        width: '92vw', maxWidth: 340, height: 620,
+        background: `linear-gradient(to bottom, rgba(80,80,80,0.45) 0%, rgba(80,80,80,0.15) 40%, rgba(80,80,80,0.00) 60%, ${dominantColor} 100%)`,
+        borderRadius: 32,
       }}
-      onPointerDown={handlePointerDown}
-      onTouchStart={handlePointerDown}
-      tabIndex={-1}
-      draggable={false}
-      data-testid="swipe-card"
     >
-      <img
-        src={product.imageUrl}
-        alt={product.name}
-        className="w-full h-56 object-cover object-top rounded-t-2xl border-b border-gray-100"
+      <div
+        ref={cardRef}
+        className={
+          `w-full h-full flex flex-col overflow-hidden z-10 select-none border-6 border-[#bfa95a]/60 bg-transparent` +
+          (canDrag ? ' cursor-grab active:shadow-2xl' : ' pointer-events-none')
+        }
+        style={{
+          ...style,
+          transform: `translate(${drag.x}px, ${drag.y}px) rotate(${drag.x * 0.07}deg)` + (style?.transform ? ` ${style.transform}` : ''),
+          transition,
+          touchAction: canDrag ? 'pan-y' : 'none',
+          padding: 4,
+          borderRadius: 32,
+          boxSizing: 'border-box',
+        }}
+        onPointerDown={handlePointerDown}
+        onTouchStart={handlePointerDown}
+        tabIndex={-1}
         draggable={false}
-      />
-      <div className="flex-1 flex flex-col justify-between p-4">
-        <div>
-          <h2 className="text-lg font-bold mb-1 text-gray-900 truncate">{product.name}</h2>
-          <p className="text-xs text-gray-500 mb-2 truncate">{product.brand}</p>
+        data-testid="swipe-card"
+      >
+        <div className="relative w-full h-[80%] flex flex-col justify-between">
+          {/* Top row: two rows of buttons */}
+          <div className="relative z-20 flex flex-col gap-3 px-4 pt-4">
+            {/* First row: menu/bookmark */}
+            <div className="flex items-center justify-between p-[10px]">
+              <button className="w-[40px] h-[40px] flex items-center justify-center rounded-[50px] border-none bg-[#000]/40">
+                <img src="/dots-white.png" className="w-[18px] h-[18px]" />
+              </button>
+              <button className="w-[40px] h-[40px] flex items-center justify-center rounded-[50px] border-none bg-[#000]/40">
+                <img src="/bookmark-white.png" className="w-[18px] h-[18px]" />
+              </button>
+            </div>
+            {/* Second row: Like/Dislike */}
+            <div className="flex items-center justify-center gap-6 mt-1">
+              <button className="w-14 h-14 flex items-center justify-center rounded-full bg-[#232323]/70 border-4 border-white/10 shadow-xl">
+                <img src="/close-x.png" className="w-7 h-7" alt="Dislike" />
+              </button>
+              <button className="w-16 h-16 flex items-center justify-center rounded-full bg-pink-500 shadow-xl border-4 border-white/10">
+                <img src="/heart-white.png" className="w-9 h-9" alt="Like" />
+              </button>
+            </div>
+          </div>
+          {/* Card image (background) */}
+          <img
+            src={product.imageUrl}
+            alt={product.name}
+            className="w-full h-full object-cover object-center rounded-[20px] z-0 absolute inset-0"
+            draggable={false}
+            style={{ padding: 0, background: 'transparent' }}
+          />
+          {/* Bottom content: name, age, verified, status */}
+          <div className="relative z-20 flex flex-col gap-2 px-7 pb-7 mt-auto">
+            <div className="flex items-center gap-2 mb-1">
+              <span className="text-white text-3xl font-bold drop-shadow-lg">{product.name}</span>
+              <span className="text-white text-2xl font-semibold opacity-70">, {product.age || 23}</span>
+              <span className="ml-1"><svg className="inline-block" width="22" height="22" viewBox="0 0 24 24" fill="#4fd1c5"><circle cx="12" cy="12" r="10" fill="#4fd1c5" /><path d="M9.5 12.5l2 2 3-4" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg></span>
+            </div>
+            <div className="flex items-center gap-2 mb-2">
+              <span className="w-2 h-2 rounded-full bg-green-400 inline-block"></span>
+              <span className="text-green-200 text-sm font-semibold">In real time</span>
+            </div>
+          </div>
         </div>
-        <div className="flex items-center justify-between mt-2">
-          <span className="font-bold text-base text-pink-500">₹{product.price}</span>
-          {product.discountPercentage > 0 && (
-            <span className="ml-2 text-xs text-green-600 font-semibold bg-green-100 rounded px-2 py-0.5">
-              {product.discountPercentage}% OFF
-            </span>
-          )}
-        </div>
-        {product.originalPrice > product.price && (
-          <span className="text-gray-400 text-xs line-through">₹{product.originalPrice}</span>
-        )}
       </div>
     </div>
   );
