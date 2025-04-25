@@ -87,7 +87,7 @@ export default function SwipeCard({ product, onSwipe, style, canDrag }) {
 
   return (
     <div
-      className="relative flex items-center justify-center"
+      className="absolute flex items-center justify-center"
       style={{
         width: '92vw', maxWidth: 340, height: 620,
         background: `linear-gradient(to bottom, rgba(80,80,80,0.45) 0%, rgba(80,80,80,0.15) 40%, rgba(80,80,80,0.00) 60%, ${dominantColor} 100%)`,
@@ -154,14 +154,14 @@ export default function SwipeCard({ product, onSwipe, style, canDrag }) {
 
         </div>
         <div className='w-full flex items-center justify-center mt-[10px]'>
-        <div className="flex items-center justify-center gap-[5px] mt-1 bg-[#232323]/70 w-[102px] rounded-[100px] px-[2px] py-[2px]">
-          <button className="w-[50px] h-[50px] flex items-center justify-center rounded-[100px] bg-[#000]/40 border-none">
-            <img src="/close-white.png" className="w-[30px] h-[30px]" alt="Dislike" />
-          </button>
-          <button className="w-[50px] h-[50px] flex items-center justify-center rounded-[100px] bg-[#F16DAE] border-none">
-            <img src="/heart-filled-white.png" className="w-[30px] h-[30px]" alt="Like" />
-          </button>
-        </div>
+          <div className="flex items-center justify-center gap-[5px] mt-1 bg-[#232323]/70 w-[102px] rounded-[100px] px-[2px] py-[2px]">
+            <button className="w-[50px] h-[50px] flex items-center justify-center rounded-[100px] bg-[#000]/40 border-none">
+              <img src="/close-white.png" className="w-[30px] h-[30px]" alt="Dislike" />
+            </button>
+            <button className="w-[50px] h-[50px] flex items-center justify-center rounded-[100px] bg-[#F16DAE] border-none">
+              <img src="/heart-filled-white.png" className="w-[30px] h-[30px]" alt="Like" />
+            </button>
+          </div>
         </div>
       </div>
     </div>
