@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 
-const SWIPE_THRESHOLD = 100; // px
+const SWIPE_THRESHOLD = 80; // px - smaller for easier swipe
 
 export default function SwipeCard({ product, onSwipe, style, canDrag }) {
   const cardRef = useRef(null);
@@ -35,7 +35,7 @@ export default function SwipeCard({ product, onSwipe, style, canDrag }) {
     if (!drag.isDragging) return;
     if (Math.abs(drag.x) > SWIPE_THRESHOLD) {
       setTransition('transform 0.4s cubic-bezier(.68,-0.55,.27,1.55)');
-      setDrag((prev) => ({ ...prev, x: drag.x > 0 ? 1000 : -1000, y: prev.y }));
+      setDrag((prev) => ({ ...prev, x: drag.x > 0 ? 600 : -600, y: prev.y }));
       setTimeout(() => {
         onSwipe(drag.x > 0 ? 'right' : 'left', product);
         setTransition('');
@@ -57,12 +57,12 @@ export default function SwipeCard({ product, onSwipe, style, canDrag }) {
     <div
       ref={cardRef}
       className={
-        `absolute w-full max-w-xs h-[60vh] left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-3xl shadow-2xl flex flex-col overflow-hidden z-10 select-none will-change-transform ` +
-        (canDrag ? 'cursor-grab' : 'pointer-events-none')
+        `absolute w-[90vw] max-w-[340px] h-[410px] sm:w-[340px] sm:h-[420px] left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-2xl shadow-lg flex flex-col overflow-hidden z-10 select-none will-change-transform transition-shadow ` +
+        (canDrag ? 'cursor-grab active:shadow-2xl' : 'pointer-events-none')
       }
       style={{
         ...style,
-        transform: `translate(${drag.x}px, ${drag.y}px) rotate(${drag.x * 0.05}deg)` + (style?.transform ? ` ${style.transform}` : ''),
+        transform: `translate(${drag.x}px, ${drag.y}px) rotate(${drag.x * 0.07}deg)` + (style?.transform ? ` ${style.transform}` : ''),
         transition,
         touchAction: canDrag ? 'pan-y' : 'none',
       }}
@@ -70,12 +70,30 @@ export default function SwipeCard({ product, onSwipe, style, canDrag }) {
       onTouchStart={handlePointerDown}
       tabIndex={-1}
       draggable={false}
+      data-testid="swipe-card"
     >
-      <img src={product.imageUrl} alt={product.name} className="w-full h-[55%] object-cover rounded-t-3xl" draggable={false} />
-      <div className="flex-1 flex flex-col justify-between p-5">
-        <h2 className="text-2xl font-bold mb-1 text-gray-900">{product.name}</h2>
-        <p className="flex-1 text-gray-600 text-base mb-2">{product.description}</p>
-        <span className="font-bold text-xl text-pink-500 self-end">${product.price}</span>
+      <img
+        src={product.imageUrl}
+        alt={product.name}
+        className="w-full h-56 object-cover object-top rounded-t-2xl border-b border-gray-100"
+        draggable={false}
+      />
+      <div className="flex-1 flex flex-col justify-between p-4">
+        <div>
+          <h2 className="text-lg font-bold mb-1 text-gray-900 truncate">{product.name}</h2>
+          <p className="text-xs text-gray-500 mb-2 truncate">{product.brand}</p>
+        </div>
+        <div className="flex items-center justify-between mt-2">
+          <span className="font-bold text-base text-pink-500">₹{product.price}</span>
+          {product.discountPercentage > 0 && (
+            <span className="ml-2 text-xs text-green-600 font-semibold bg-green-100 rounded px-2 py-0.5">
+              {product.discountPercentage}% OFF
+            </span>
+          )}
+        </div>
+        {product.originalPrice > product.price && (
+          <span className="text-gray-400 text-xs line-through">₹{product.originalPrice}</span>
+        )}
       </div>
     </div>
   );
