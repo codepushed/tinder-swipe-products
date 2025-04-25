@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, forwardRef } from 'react';
 import TinderCard from 'react-tinder-card';
 
 const SWIPE_THRESHOLD = 80;
@@ -33,13 +33,28 @@ function useDominantColor(imageUrl) {
   return color;
 }
 
-export default function SwipeCard({ product, onSwipe, style, canDrag }) {
+const SwipeCard = forwardRef(function SwipeCard({ product, onSwipe, style, canDrag }, ref) {
   const dominantColor = useDominantColor(product.imageUrl);
+  const cardRef = useRef();
+
+  React.useImperativeHandle(ref, () => ({
+    swipe: (dir) => cardRef.current?.swipe(dir)
+  }));
+
+  const handleButtonClick = (dir) => {
+    if (!canDrag) return;
+    if (ref && typeof ref !== 'function' && ref.current) {
+      ref.current.swipe(dir);
+    } else if (cardRef.current) {
+      cardRef.current.swipe(dir);
+    }
+  };
 
   return (
-    <div className="absolute w-full h-full flex items-center justify-center pointer-events-none" style={{zIndex: style?.zIndex}}>
+    <div className="absolute w-full h-full flex items-center justify-center" style={{ zIndex: style?.zIndex, pointerEvents: 'auto' }}>
       <TinderCard
-        className="w-full h-full flex items-center justify-center pointer-events-auto"
+        ref={cardRef}
+        className="w-full h-full flex items-center justify-center"
         onSwipe={(dir) => onSwipe(dir, product)}
         preventSwipe={canDrag ? [] : ['up', 'down', 'left', 'right']}
         swipeRequirementType="position"
@@ -48,7 +63,7 @@ export default function SwipeCard({ product, onSwipe, style, canDrag }) {
         <div
           className={
             `w-full h-full flex flex-col overflow-hidden z-10 select-none border-6 border-[#F3CFC6]/60 bg-transparent` +
-            (canDrag ? ' cursor-grab active:shadow-2xl' : ' pointer-events-none')
+            (canDrag ? ' cursor-grab active:shadow-2xl' : '')
           }
           style={{
             width: '92vw', maxWidth: 340, height: 620,
@@ -93,10 +108,24 @@ export default function SwipeCard({ product, onSwipe, style, canDrag }) {
           </div>
           <div className='w-full flex items-center justify-center mt-[30px]'>
             <div className="flex items-center justify-center gap-[12px] mt-1 bg-[#232323]/70 w-[110px] rounded-[100px] px-[3px] py-[3px]">
-              <button className="w-[50px] h-[50px] flex items-center justify-center rounded-[100px] bg-[#808080]/20 border-none">
+              <button
+                className="w-[50px] h-[50px] flex items-center justify-center rounded-[100px] bg-[#808080]/20 border-none active:scale-90 transition-transform duration-300"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleButtonClick('left');
+                }}
+                aria-label="Dislike"
+              >
                 <img src="/close-white.png" className="w-[30px] h-[30px]" alt="Dislike" />
               </button>
-              <button className="w-[50px] h-[50px] flex items-center justify-center rounded-[100px] bg-[#F16DAE] border-none">
+              <button
+                className="w-[50px] h-[50px] flex items-center justify-center rounded-[100px] bg-[#F16DAE] border-none active:scale-90 transition-transform duration-300"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleButtonClick('right');
+                }}
+                aria-label="Like"
+              >
                 <img src="/heart-filled-white.png" className="w-[30px] h-[30px]" alt="Like" />
               </button>
             </div>
@@ -105,4 +134,6 @@ export default function SwipeCard({ product, onSwipe, style, canDrag }) {
       </TinderCard>
     </div>
   );
-}
+});
+
+export default SwipeCard;

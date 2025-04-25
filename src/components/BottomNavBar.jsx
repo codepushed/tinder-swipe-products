@@ -24,7 +24,7 @@ const BottomNavBar = ({ activeTab = "home", onTabChange }) => {
           className={`flex items-center justify-center w-[48px] h-[48px] bg-[#808080]/20 border-none rounded-full transition-all duration-200 ${activeTab === "likes" ? "bg-[#fff] text-[#18191A]" : "bg-transparent text-[#A3A3A3]"}`}
           onClick={() => onTabChange && onTabChange("likes")}
         >
-          <img src={activeTab === "likes" ? "/like-black.png" : "/like-white.png"} className="w-[24px] h-[24px] transition-all duration-200" alt="Likes" />
+          <img src={activeTab === "likes" ? "/heart-black.png" : "/like-white.png"} className="w-[24px] h-[24px] transition-all duration-200" alt="Likes" />
         </button>
         <button
           className={`flex items-center justify-center w-[48px] h-[48px] bg-[#808080]/20 border-none rounded-full transition-all duration-200 ${activeTab === "chat" ? "bg-[#fff] text-[#18191A]" : "bg-transparent text-[#A3A3A3]"}`}

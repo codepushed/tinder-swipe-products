@@ -2,7 +2,7 @@ import React from "react";
 
 const TopNavBar = ({ activeTab = "forYou", onTabChange }) => {
   return (
-    <nav className="w-full flex items-center justify-between pt-6 pb-3 gap-[25px]">
+    <nav className="w-full flex items-center justify-between pt-6 pb-3 gap-[25px] mt-[5px]">
       <button className="w-[40px] h-[40px] flex items-center justify-center rounded-[50px] border-none bg-[#808080]/10">
         <img src="/menu-white.png" className="w-[18px] h-[18px]" />
       </button>
