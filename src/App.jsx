@@ -13,18 +13,17 @@ function App() {
 
   return (
     <div className="min-h-screen w-full bg-gradient-to-br from-pink-100 via-blue-100 to-blue-300 flex flex-col items-center justify-center">
-      <h1 className="text-4xl font-extrabold text-pink-600 underline mb-4" data-testid="tailwind-test">Tailwind Test</h1>
-      <div className="relative w-full max-w-xs h-[70vh] flex items-center justify-center">
+      <div className="w-full max-w-xs h-[70vh] flex items-center justify-center">
         {products.length === 0 ? (
           <div className="text-lg font-semibold text-center bg-black/20 text-white rounded-xl p-8">No more products!</div>
         ) : (
-          products.slice().reverse().map((product, idx) => (
+          products.map((product, idx) => (
             <SwipeCard
               key={product.id}
               product={product}
-              onSwipe={handleSwipe}
-              canDrag={idx === products.length - 1}
-              style={{ zIndex: idx }}
+              onSwipe={idx === 0 ? handleSwipe : () => {}}
+              canDrag={idx === 0}
+              style={{ zIndex: products.length - idx }}
             />
           ))
         )}
