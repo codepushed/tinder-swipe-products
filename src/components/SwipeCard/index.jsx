@@ -153,7 +153,7 @@ export default function SwipeCard({ product, onSwipe, style, canDrag }) {
           </div>
 
         </div>
-        <div className='w-full flex items-center justify-center mt-[10px]'>
+        <div className='w-full flex items-center justify-center mt-[30px]'>
           <div className="flex items-center justify-center gap-[12px] mt-1 bg-[#232323]/70 w-[110px] rounded-[100px] px-[3px] py-[3px]">
             <button className="w-[50px] h-[50px] flex items-center justify-center rounded-[100px] bg-[#808080]/20 border-none">
               <img src="/close-white.png" className="w-[30px] h-[30px]" alt="Dislike" />
