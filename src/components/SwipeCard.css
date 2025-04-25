@@ -1,0 +1,55 @@
+.swipe-card {
+  position: absolute;
+  width: 90vw;
+  max-width: 350px;
+  height: 60vh;
+  max-height: 500px;
+  left: 50%;
+  top: 55%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  border-radius: 24px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 1;
+  user-select: none;
+  will-change: transform;
+}
+
+.swipe-card-img {
+  width: 100%;
+  height: 55%;
+  object-fit: cover;
+  border-top-left-radius: 24px;
+  border-top-right-radius: 24px;
+}
+
+.swipe-card-info {
+  padding: 1.2rem 1.5rem 1.5rem 1.5rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.swipe-card-info h2 {
+  margin: 0 0 0.4em 0;
+  font-size: 1.5em;
+  color: #222;
+}
+
+.swipe-card-info p {
+  flex: 1;
+  color: #666;
+  font-size: 1em;
+  margin-bottom: 0.8em;
+}
+
+.swipe-card-price {
+  font-weight: bold;
+  color: #ff6f61;
+  font-size: 1.2em;
+  align-self: flex-end;
+}
