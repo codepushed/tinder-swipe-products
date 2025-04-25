@@ -71,7 +71,7 @@ export default function SwipeCard({ product, onSwipe, style, canDrag }) {
       tabIndex={-1}
       draggable={false}
     >
-      <img src={product.image} alt={product.name} className="w-full h-[55%] object-cover rounded-t-3xl" draggable={false} />
+      <img src={product.imageUrl} alt={product.name} className="w-full h-[55%] object-cover rounded-t-3xl" draggable={false} />
       <div className="flex-1 flex flex-col justify-between p-5">
         <h2 className="text-2xl font-bold mb-1 text-gray-900">{product.name}</h2>
         <p className="flex-1 text-gray-600 text-base mb-2">{product.description}</p>

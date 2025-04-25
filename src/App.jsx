@@ -17,12 +17,12 @@ function App() {
         {products.length === 0 ? (
           <div className="text-lg font-semibold text-center bg-black/20 text-white rounded-xl p-8">No more products!</div>
         ) : (
-          products.map((product, idx) => (
+          products.slice().reverse().map((product, idx) => (
             <SwipeCard
               key={product.id}
               product={product}
               onSwipe={handleSwipe}
-              style={{ zIndex: products.length - idx }}
+              style={{ zIndex: idx, top: 0, left: 0, position: 'absolute' }}
               canDrag={idx === 0}
             />
           ))
