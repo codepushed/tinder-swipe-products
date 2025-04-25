@@ -1,5 +1,4 @@
 import React, { useRef, useState } from 'react';
-import './SwipeCard.css';
 
 const SWIPE_THRESHOLD = 100; // px
 
@@ -57,24 +56,26 @@ export default function SwipeCard({ product, onSwipe, style, canDrag }) {
   return (
     <div
       ref={cardRef}
-      className="swipe-card"
+      className={
+        `absolute w-full max-w-xs h-[60vh] left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-3xl shadow-2xl flex flex-col overflow-hidden z-10 select-none will-change-transform ` +
+        (canDrag ? 'cursor-grab' : 'pointer-events-none')
+      }
       style={{
         ...style,
-        transform: `translate(${drag.x}px, ${drag.y}px) rotate(${drag.x * 0.05}deg)`,
+        transform: `translate(${drag.x}px, ${drag.y}px) rotate(${drag.x * 0.05}deg)` + (style?.transform ? ` ${style.transform}` : ''),
         transition,
         touchAction: canDrag ? 'pan-y' : 'none',
-        pointerEvents: canDrag ? 'auto' : 'none',
       }}
       onPointerDown={handlePointerDown}
       onTouchStart={handlePointerDown}
       tabIndex={-1}
       draggable={false}
     >
-      <img src={product.image} alt={product.name} className="swipe-card-img" draggable={false} />
-      <div className="swipe-card-info">
-        <h2>{product.name}</h2>
-        <p>{product.description}</p>
-        <span className="swipe-card-price">${product.price}</span>
+      <img src={product.image} alt={product.name} className="w-full h-[55%] object-cover rounded-t-3xl" draggable={false} />
+      <div className="flex-1 flex flex-col justify-between p-5">
+        <h2 className="text-2xl font-bold mb-1 text-gray-900">{product.name}</h2>
+        <p className="flex-1 text-gray-600 text-base mb-2">{product.description}</p>
+        <span className="font-bold text-xl text-pink-500 self-end">${product.price}</span>
       </div>
     </div>
   );
