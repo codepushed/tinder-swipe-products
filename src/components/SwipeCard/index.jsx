@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 
-const SWIPE_THRESHOLD = 80; // px - smaller for easier swipe
+const SWIPE_THRESHOLD = 80;
 
 export default function SwipeCard({ product, onSwipe, style, canDrag }) {
   const cardRef = useRef(null);
@@ -97,7 +97,7 @@ export default function SwipeCard({ product, onSwipe, style, canDrag }) {
       <div
         ref={cardRef}
         className={
-          `w-full h-full flex flex-col overflow-hidden z-10 select-none border-6 border-[#bfa95a]/60 bg-transparent` +
+          `w-full h-full flex flex-col overflow-hidden z-10 select-none border-6 border-[#F3CFC6]/60 bg-transparent` +
           (canDrag ? ' cursor-grab active:shadow-2xl' : ' pointer-events-none')
         }
         style={{
@@ -116,9 +116,9 @@ export default function SwipeCard({ product, onSwipe, style, canDrag }) {
         data-testid="swipe-card"
       >
         <div className="relative w-full h-[80%] flex flex-col justify-between">
-          {/* Top row: two rows of buttons */}
+
           <div className="relative z-20 flex flex-col gap-3 px-4 pt-4">
-            {/* First row: menu/bookmark */}
+
             <div className="flex items-center justify-between p-[10px]">
               <button className="w-[40px] h-[40px] flex items-center justify-center rounded-[50px] border-none bg-[#000]/40">
                 <img src="/dots-white.png" className="w-[18px] h-[18px]" />
@@ -127,17 +127,10 @@ export default function SwipeCard({ product, onSwipe, style, canDrag }) {
                 <img src="/bookmark-white.png" className="w-[18px] h-[18px]" />
               </button>
             </div>
-            {/* Second row: Like/Dislike */}
-            <div className="flex items-center justify-center gap-6 mt-1">
-              <button className="w-14 h-14 flex items-center justify-center rounded-full bg-[#232323]/70 border-4 border-white/10 shadow-xl">
-                <img src="/close-x.png" className="w-7 h-7" alt="Dislike" />
-              </button>
-              <button className="w-16 h-16 flex items-center justify-center rounded-full bg-pink-500 shadow-xl border-4 border-white/10">
-                <img src="/heart-white.png" className="w-9 h-9" alt="Like" />
-              </button>
-            </div>
+
+
           </div>
-          {/* Card image (background) */}
+
           <img
             src={product.imageUrl}
             alt={product.name}
@@ -145,7 +138,7 @@ export default function SwipeCard({ product, onSwipe, style, canDrag }) {
             draggable={false}
             style={{ padding: 0, background: 'transparent' }}
           />
-          {/* Bottom content: name, age, verified, status */}
+
           <div className="relative z-20 flex flex-col gap-2 px-7 pb-7 mt-auto">
             <div className="flex items-center gap-2 mb-1">
               <span className="text-white text-3xl font-bold drop-shadow-lg">{product.name}</span>
@@ -156,7 +149,19 @@ export default function SwipeCard({ product, onSwipe, style, canDrag }) {
               <span className="w-2 h-2 rounded-full bg-green-400 inline-block"></span>
               <span className="text-green-200 text-sm font-semibold">In real time</span>
             </div>
+
           </div>
+
+        </div>
+        <div className='w-full flex items-center justify-center mt-[10px]'>
+        <div className="flex items-center justify-center gap-[5px] mt-1 bg-[#232323]/70 w-[102px] rounded-[100px] px-[2px] py-[2px]">
+          <button className="w-[50px] h-[50px] flex items-center justify-center rounded-[100px] bg-[#000]/40 border-none">
+            <img src="/close-white.png" className="w-[30px] h-[30px]" alt="Dislike" />
+          </button>
+          <button className="w-[50px] h-[50px] flex items-center justify-center rounded-[100px] bg-[#F16DAE] border-none">
+            <img src="/heart-filled-white.png" className="w-[30px] h-[30px]" alt="Like" />
+          </button>
+        </div>
         </div>
       </div>
     </div>
