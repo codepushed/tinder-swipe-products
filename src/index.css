@@ -58,6 +58,28 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 } */
 
+@keyframes fadeinout {
+  0% { opacity: 0; }
+  15% { opacity: 1; }
+  85% { opacity: 1; }
+  100% { opacity: 0; }
+}
+.animate-fadeinout {
+  animation: fadeinout 1.5s cubic-bezier(.4,0,.2,1) forwards;
+}
+
+@keyframes pop {
+  0% { transform: scale(0.8); opacity: 0; }
+  50% { transform: scale(1.1); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+.animate-pop {
+  animation: pop 0.7s cubic-bezier(.4,0,.2,1) forwards;
+}
+.animate-pop-delay {
+  animation: pop 0.7s cubic-bezier(.4,0,.2,1) 0.25s forwards;
+}
+
 /* @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
