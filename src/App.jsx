@@ -54,7 +54,7 @@ function App() {
               ))}
             </div>
           ) : activeTab === 'nearby' ? (
-            <div className="w-full h-full flex items-center justify-center">
+            <div className="w-full h-full flex items-start justify-center overflow-y-auto mt-[80px] pb-[120px]">
               {/* Collections grid view */}
               <CollectionGrid products={products} />
             </div>
