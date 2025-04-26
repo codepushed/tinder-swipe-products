@@ -20,6 +20,7 @@ function App() {
   const [activeTab, setActiveTab] = useState('forYou');
   const [activeBottomTab, setActiveBottomTab] = useState('home');
   const [showSplash, setShowSplash] = useState(true);
+  const [modalProduct, setModalProduct] = useState(null);
 
   useEffect(() => {
     const timer = setTimeout(() => setShowSplash(false), 1500);
@@ -29,6 +30,15 @@ function App() {
   const handleSwipe = (direction, product) => {
     setProducts((prev) => prev.slice(1));
     setSwiped((prev) => [...prev, { ...product, direction }]);
+  };
+
+  const handleCardClick = (product) => {
+    console.log('Card clicked:', product);
+    setModalProduct(product);
+  };
+
+  const handleCloseModal = () => {
+    setModalProduct(null);
   };
 
   return (
@@ -56,7 +66,7 @@ function App() {
           ) : activeTab === 'nearby' ? (
             <div className="w-full h-full flex items-start justify-center overflow-y-auto mt-[80px] pb-[120px]">
               {/* Collections grid view */}
-              <CollectionGrid products={products} />
+              <CollectionGrid products={products} onCardClick={handleCardClick} />
             </div>
           ) : products.length === 0 ? (
             <div className="text-lg font-semibold text-center bg-black/20 text-white rounded-xl p-8">
@@ -76,8 +86,13 @@ function App() {
         </div>
         <BottomNavBar activeTab={activeBottomTab} onTabChange={setActiveBottomTab} />
       </div>
+      {/* Product Modal for collection cards */}
+      {!!modalProduct && (
+        <ProductModal product={modalProduct} open={true} onClose={handleCloseModal} />
+      )}
     </>
   );
 }
 
+import ProductModal from './components/ProductModal';
 export default App;
