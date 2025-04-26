@@ -6,6 +6,7 @@ import BottomNavBar from './components/BottomNavBar';
 import SplashScreen from './components/SplashScreen';
 import CollectionGrid from './components/CollectionGrid';
 import Explore from './pages/Explore';
+import Cart from './pages/Cart';
 
 const notifications = [
   { id: 1, user: 'Ava', msg: 'liked your product', time: '2m ago', avatar: '/avatar1.jpg' },
@@ -81,6 +82,8 @@ function App() {
             <div className="w-full h-full flex items-start justify-center overflow-y-auto mt-0 pb-[300px]">
               <Explore />
             </div>
+          ) : activeBottomTab === 'cart' ? (
+            <Cart cart={cart} onCheckout={() => setCart([])} />
           ) : products.length === 0 ? (
             <div className="text-lg font-semibold text-center bg-black/20 text-white rounded-xl p-8">
               No more products!
