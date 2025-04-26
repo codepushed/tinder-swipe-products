@@ -22,6 +22,7 @@ function App() {
   const [activeBottomTab, setActiveBottomTab] = useState('home');
   const [showSplash, setShowSplash] = useState(true);
   const [modalProduct, setModalProduct] = useState(null);
+  const [cart, setCart] = useState([]);
 
   useEffect(() => {
     const timer = setTimeout(() => setShowSplash(false), 1500);
@@ -31,6 +32,13 @@ function App() {
   const handleSwipe = (direction, product) => {
     setProducts((prev) => prev.slice(1));
     setSwiped((prev) => [...prev, { ...product, direction }]);
+    if (direction === 'up') {
+      setCart((prev) => {
+        // Avoid duplicates by id
+        if (prev.find(item => item.id === product.id)) return prev;
+        return [...prev, product];
+      });
+    }
   };
 
   const handleCardClick = (product) => {
@@ -89,7 +97,7 @@ function App() {
             ))
           )}
         </div>
-        <BottomNavBar activeTab={activeBottomTab} onTabChange={setActiveBottomTab} />
+        <BottomNavBar activeTab={activeBottomTab} onTabChange={setActiveBottomTab} cart={cart} />
       </div>
       {!!modalProduct && (
         <ProductModal product={modalProduct} open={true} onClose={handleCloseModal} />
