@@ -5,6 +5,7 @@ import TopNavBar from './components/TopNavBar';
 import BottomNavBar from './components/BottomNavBar';
 import SplashScreen from './components/SplashScreen';
 import CollectionGrid from './components/CollectionGrid';
+import Explore from './pages/Explore';
 
 const notifications = [
   { id: 1, user: 'Ava', msg: 'liked your product', time: '2m ago', avatar: '/avatar1.jpg' },
@@ -68,6 +69,8 @@ function App() {
               {/* Collections grid view */}
               <CollectionGrid products={products} onCardClick={handleCardClick} />
             </div>
+          ) : activeBottomTab === 'explore' ? (
+            <Explore />
           ) : products.length === 0 ? (
             <div className="text-lg font-semibold text-center bg-black/20 text-white rounded-xl p-8">
               No more products!
