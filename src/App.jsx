@@ -4,6 +4,7 @@ import { demoProducts } from './data';
 import TopNavBar from './components/TopNavBar';
 import BottomNavBar from './components/BottomNavBar';
 import SplashScreen from './components/SplashScreen';
+import CollectionGrid from './components/CollectionGrid';
 
 const notifications = [
   { id: 1, user: 'Ava', msg: 'liked your product', time: '2m ago', avatar: '/avatar1.jpg' },
@@ -51,6 +52,11 @@ function App() {
                   </div>
                 </div>
               ))}
+            </div>
+          ) : activeTab === 'nearby' ? (
+            <div className="w-full h-full flex items-center justify-center">
+              {/* Collections grid view */}
+              <CollectionGrid products={products} />
             </div>
           ) : products.length === 0 ? (
             <div className="text-lg font-semibold text-center bg-black/20 text-white rounded-xl p-8">
