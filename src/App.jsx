@@ -51,7 +51,7 @@ function App() {
             <TopNavBar activeTab={activeTab} onTabChange={setActiveTab} />
           </div>
         )}
-        <div className="w-[95%] max-w-xs h-[70vh] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center">
+        <div className="w-[95%] max-w-xs h-[90vh] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center">
           {activeBottomTab === 'likes' ? (
             <div className="w-full h-full bg-[#232323]/80 rounded-2xl px-2 py-2 flex flex-col gap-4 overflow-y-auto">
               <h2 className="text-lg font-semibold px-[10px] text-white mb-3 ml-2">Notifications</h2>
