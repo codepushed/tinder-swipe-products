@@ -46,10 +46,11 @@ function App() {
     <>
       {showSplash && <SplashScreen />}
       <div className={`min-h-screen w-full bg-[#191919] flex flex-col items-center justify-center${showSplash ? ' pointer-events-none select-none' : ''}`}>
-        <div className="absolute top-[5vh] left-1/2 -translate-x-1/2 z-20">
-          <TopNavBar activeTab={activeTab} onTabChange={setActiveTab} />
-        </div>
-
+        {activeBottomTab === 'home' && (
+          <div className="absolute top-[5vh] left-1/2 -translate-x-1/2 z-20">
+            <TopNavBar activeTab={activeTab} onTabChange={setActiveTab} />
+          </div>
+        )}
         <div className="w-[95%] max-w-xs h-[70vh] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center">
           {activeBottomTab === 'likes' ? (
             <div className="w-full h-full bg-[#232323]/80 rounded-2xl px-2 py-2 flex flex-col gap-4 overflow-y-auto">
@@ -66,11 +67,12 @@ function App() {
             </div>
           ) : activeTab === 'nearby' ? (
             <div className="w-full h-full flex items-start justify-center overflow-y-auto mt-[80px] pb-[120px]">
-              {/* Collections grid view */}
               <CollectionGrid products={products} onCardClick={handleCardClick} />
             </div>
           ) : activeBottomTab === 'explore' ? (
-            <Explore />
+            <div className="w-full h-full flex items-start justify-center overflow-y-auto mt-0 pb-[300px]">
+              <Explore />
+            </div>
           ) : products.length === 0 ? (
             <div className="text-lg font-semibold text-center bg-black/20 text-white rounded-xl p-8">
               No more products!
@@ -89,7 +91,6 @@ function App() {
         </div>
         <BottomNavBar activeTab={activeBottomTab} onTabChange={setActiveBottomTab} />
       </div>
-      {/* Product Modal for collection cards */}
       {!!modalProduct && (
         <ProductModal product={modalProduct} open={true} onClose={handleCloseModal} />
       )}
