@@ -95,14 +95,10 @@ const SwipeCard = forwardRef(function SwipeCard({ product, onSwipe, style, canDr
               style={{ padding: 0, background: 'transparent' }}
             />
             <div className="relative z-20 flex flex-col gap-2 px-7 pb-7 mt-auto">
-              <div className="flex items-center gap-2 mb-1">
-                <span className="text-white text-3xl font-bold drop-shadow-lg">{product.name}</span>
-                <span className="text-white text-2xl font-semibold opacity-70">, {product.age || 23}</span>
-                <span className="ml-1"><svg className="inline-block" width="22" height="22" viewBox="0 0 24 24" fill="#4fd1c5"><circle cx="12" cy="12" r="10" fill="#4fd1c5" /><path d="M9.5 12.5l2 2 3-4" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg></span>
-              </div>
-              <div className="flex items-center gap-2 mb-2">
-                <span className="w-2 h-2 rounded-full bg-green-400 inline-block"></span>
-                <span className="text-green-200 text-sm font-semibold">In real time</span>
+              <div className="flex flex-col gap-1 mb-2 px-[10px]">
+                <span className="text-white text-[25px] font-bold truncate" style={{ fontWeight: 800, textTransform: "capitalize" }}>{product.name}</span>
+                <span className="text-[#FF444F] text-base font-semibold truncate" style={{ fontWeight: 600, textTransform: "capitalize" }}>{product.brand}</span>
+                <span className="text-white text-xl font-bold mt-1 mb-[10px]" style={{ fontWeight: 600, textTransform: "capitalize" }}>₹{product.price}</span>
               </div>
             </div>
           </div>
