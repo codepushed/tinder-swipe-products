@@ -19,7 +19,7 @@ const demoProducts = [
   },
   {
     id: 3,
-    name: "white typographic printed regular tshirt",
+    name: "white typographic printed ",
     brand: "newme",
     price: 4500,
     originalPrice: 6000,
@@ -73,7 +73,7 @@ const demoProducts = [
   },
   {
     id: 9,
-    name: "lapel collar drop shoulder cropped denim shirt",
+    name: "lapel collar drop shoulder cropped...",
     brand: "chemistry india",
     price: 4500,
     originalPrice: 6000,

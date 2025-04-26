@@ -38,10 +38,13 @@ const Cart = ({ cart = [], onCheckout }) => {
         <div className="w-full max-w-md px-4 flex flex-col gap-[20px] relative" style={{height: '70vh'}}>
           <div className="overflow-y-auto overflow-x-hidden pr-2" style={{maxHeight: 'calc(70vh - 100px)'}}>
             {cart.map((product) => (
-              <div key={product.id} className="mb-[15px] py-[10px] flex items-center gap-4 bg-[#000] rounded-[10px] p-3 shadow border border-[#232323]">
-                <img src={product.imageUrl} alt={product.name} className="w-[100px] h-[90px] object-cover rounded-[10px] bg-[#18191A]" />
+              <div key={product.id} className="mb-[15px]  py-[10px] flex items-center gap-4 bg-[#000] rounded-[10px] p-3 shadow border border-[#232323]">
+                <div className="w-[100px] h-[90px]">
+                <img src={product.imageUrl} alt={product.name} className="w-[100%] h-[100%] object-cover rounded-[10px] bg-[#18191A]" />
+
+                </div>
                 <div className="flex-1 flex flex-col ml-[10px]">
-                  <span className="text-white font-bold text-lg truncate">{product.name}</span>
+                  <span className="text-white font-bold text-lg truncate" style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{product.name}</span>
                   <span className="text-[#FF444F] text-sm ">{product.brand}</span>
                   <span className="text-white font-bold text-base mt-1">₹{product.price}</span>
                 </div>

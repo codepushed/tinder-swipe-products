@@ -37,7 +37,7 @@ const BottomNavBar = ({ activeTab = "home", onTabChange, cart }) => {
           <img src={activeTab === "cart" ? "/cart-black.png" : "/cart-white.png"} className="w-[24px] h-[24px] transition-all duration-200" alt="Cart" />
           </span>
           {cart && cart.length > 0 && (
-            <span className="absolute text-[#fff] -top-2 -right-[5px] bg-[#FF444F] text-white text-xs font-bold rounded-[100px] text-center w-[10px] h-[16px] px-[5px] py-[2px]">
+            <span className="absolute text-[#fff] -top-1 -right-[3px] bg-[#FF444F] text-white text-xs font-bold rounded-[100px] text-center w-[10px] h-[16px] px-[5px] py-[2px]">
               {cart.length}
             </span>
           )}

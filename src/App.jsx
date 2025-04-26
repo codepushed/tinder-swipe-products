@@ -75,7 +75,7 @@ function App() {
               ))}
             </div>
           ) : activeTab === 'nearby' ? (
-            <div className="w-full h-full flex items-start justify-center overflow-y-auto mt-[80px] pb-[120px]">
+            <div className="w-full h-full flex items-start justify-center overflow-y-auto mt-[80px] pb-[0px] mt-[150px]">
               <CollectionGrid products={products} onCardClick={handleCardClick} />
             </div>
           ) : activeBottomTab === 'explore' ? (
